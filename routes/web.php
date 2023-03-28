@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,12 @@ use App\Http\Controllers\CompanyController;
 Route::middleware('auth')->group(function () {
     Route::get('/', [CompanyController::class, 'index']);
     Route::post('/', [CompanyController::class, 'create']);
+    Route::post('/company/edit/{id}', [CompanyController::class, 'edit']);
+    Route::delete('/company/delete/{id}', [CompanyController::class, 'delete']);
+    Route::get('/company/{id}', [EmployeeController::class, 'index']);
+    Route::post('/company/{id}', [EmployeeController::class, 'create']);
+    Route::post('/company/employee/edit/{id}', [EmployeeController::class, 'edit']);
+    Route::delete('/company/employee/delete/{id}', [EmployeeController::class, 'delete']);
 });
 
 Route::get('/login', [AuthController::class, 'getLogin'])->name('login');
