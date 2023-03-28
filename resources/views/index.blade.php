@@ -1,20 +1,61 @@
 @extends('layout.base')
 
+@section('styles')
+    <style>
+        .company-card {
+            margin-top: 20px;
+        }
+
+        .add-company-modal>* {
+            margin-top: 10px;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="modal fade" id="add_company_modal" tabindex="-1" aria-labelledby="add_company_modal" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="add_company_modal_label">Add Company</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                <form action="/" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body add-company-modal">
+                        <div class="row g-2">
+                            <div class="col-md">
+                                <label for="name">Company Name*</label>
+                                <input type="text" id="name" name="name" class="form-control">
+                            </div>
+                            <div class="col-md">
+                                <label for="email">Company Email*</label>
+                                <input type="email" id="email" name="email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col-md">
+                                <label for="logo">Company logo</label>
+                                <input type="file" id="logo" name="logo" accept="image/*" class="form-control">
+                            </div>
+                            <div class="col-md">
+                                <label for="website">Company Website*</label>
+                                <input type="text" id="website" placeholder="https://www.example.com" name="website"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="row g-1">
+                            <div class="col md">
+                                <label for="discription">Discription</label>
+                                <textarea name="discription" class="form-control" id="discription" cols="10" rows="4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -26,8 +67,21 @@
                     data-bs-target="#add_company_modal" style="height: 100%">Add New</button>
             </div>
         </div>
-        <div class="container">
-
+        <div class="container" style="margin-top: 20px">
+            <div class="row row-cols-3">
+                @foreach ($companies as $company)
+                    <div class="col">
+                        <div class="card company-card" style="width: 18rem;">
+                            <img src="/storage/{{ $company->logo }}" class="card-img-top" alt="company_logo">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $company->name }}</h5>
+                                <p class="card-text">{{ $company->discription }}</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
 @endsection

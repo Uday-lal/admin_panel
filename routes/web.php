@@ -17,7 +17,8 @@ use App\Http\Controllers\CompanyController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [CompanyController::class, 'index']);
+    Route::post('/', [CompanyController::class, 'create']);
 });
 
-Route::get('/login', [AuthController::class, 'getLogin']);
+Route::get('/login', [AuthController::class, 'getLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
