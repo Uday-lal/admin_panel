@@ -147,6 +147,22 @@
             </div>
         </div>
     </div>
+    @if ($companies->hasMorePages())
+        <footer style="width: 100%; display: flex; align-items: center; justify-content: center; margin-top: 30px">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="{{ $companies->previousPageUrl() }}">Previous</a>
+                    </li>
+                    @for ($i = 0; $i < $companies->total(); $i++)
+                        <li class="page-item"><a class="page-link"
+                                href="/?page={{ $i + 1 }}">{{ $i + 1 }}</a>
+                        </li>
+                    @endfor
+                    <li class="page-item"><a class="page-link" href="{{ $companies->nextPageUrl() }}">Next</a></li>
+                </ul>
+            </nav>
+        </footer>
+    @endif
 @endsection
 @section('scripts')
     <script>

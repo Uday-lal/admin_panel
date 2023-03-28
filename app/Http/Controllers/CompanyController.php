@@ -10,7 +10,7 @@ class CompanyController extends Controller
 {
     public function index(Request $request)
     {
-        $companies = Companies::all();
+        $companies = Companies::paginate(10);
         return view('index', array(
             'companies' => $companies
         ));
